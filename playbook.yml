@@ -1,0 +1,9 @@
+---
+- hosts: dockerhost
+  remote_user: ec2-user
+  vars:
+    jenkins_plugins: ["git", "github", "github-api", "git-server", "git-client", "plain-credentials"]
+  roles:
+    - role: geerlingguy.jenkins
+      become: yes
+    - role: jenkins-github

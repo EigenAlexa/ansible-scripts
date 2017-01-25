@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jenkins.model.JenkinsLocationConfiguration>
+  <adminAddress>eigen@ml.berkeley.edu</adminAddress>
+  <jenkinsUrl>http://ec2-54-89-104-93.compute-1.amazonaws.com:8080/</jenkinsUrl>
+</jenkins.model.JenkinsLocationConfiguration>
+

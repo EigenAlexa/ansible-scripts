@@ -1,0 +1,3 @@
+<com.cloudbees.plugins.credentials.domains.Domain>
+    <name>GithubCredentials</name>
+</com.cloudbees.plugins.credentials.domains.Domain>

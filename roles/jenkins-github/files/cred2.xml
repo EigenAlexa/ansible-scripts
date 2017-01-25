@@ -1,0 +1,6 @@
+<org.jenkinsci.plugins.plaincredentials.impl.StringCredentialsImpl plugin="plain-credentials@1.3">
+  <scope>GLOBAL</scope>
+  <id>GithubAPI</id>
+  <description>Github API Token</description>
+  <secret>6b361fd9e0cff4728a640f696ea87485de219dbf</secret>
+</org.jenkinsci.plugins.plaincredentials.impl.StringCredentialsImpl>

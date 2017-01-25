@@ -1,0 +1,7 @@
+<com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl>
+  <scope>GLOBAL</scope>
+  <id>JenkinsAlexaGithub</id>
+  <description>Github user for jenkins</description>
+  <username>JenkinsAlexa</username>
+  <password>DickBallsMachineLearning</password>
+</com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl>
