@@ -7,3 +7,4 @@
     - role: geerlingguy.jenkins
       become: yes
     - role: jenkins-github
+    - role: test-setup

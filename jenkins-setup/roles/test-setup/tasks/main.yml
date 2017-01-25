@@ -1,0 +1,16 @@
+---
+- name: Install pip dependencies
+  pip:
+    name: "{{item}}"
+    state: present
+    executable: pip-2.7
+  with_items:
+    - boto
+  become: true
+
+- name: Copy secret keys
+  copy:
+    dest: ~/secret.keys
+    src: secret.keys
+    owner: ec2-user
+

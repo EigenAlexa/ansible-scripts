@@ -1,0 +1,35 @@
+---
+- hosts: EC2
+  tasks:
+  - name: Install apt-https
+    apt:
+      name: "{{item}}"
+      state: present
+    with_items:
+      - apt-transport-https
+      - ca-certificates
+    become: true
+  - name: Add Docker's GPG key
+    shell: curl -fsSL https://yum.dockerproject.org/gpg | apt-key add -
+    become: true
+  - name: Add Docker repository
+    shell: > 
+          add-apt-repository
+          "deb https://apt.dockerproject.org/repo/
+          ubuntu-$(lsb_release -cs)
+          main"
+    become: true
+  - name: Update apt
+    apt:
+      update_cache: yes
+    become: true
+  - name: Install docker-engine
+    apt:
+      name: docker-engine
+      state: present
+    become: true
+  - name: Add ubuntu user to docker group
+    user:
+      name: ubuntu
+      group: docker
+    become: true 
