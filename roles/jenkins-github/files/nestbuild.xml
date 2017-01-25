@@ -4,7 +4,7 @@
   <description></description>
   <keepDependencies>false</keepDependencies>
   <properties>
-    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.24.0">
+    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.25.1">
       <projectUrl>https://github.com/EigenAlexa/nest.git/</projectUrl>
       <displayName></displayName>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
@@ -31,28 +31,79 @@
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers>
-    <com.cloudbees.jenkins.GitHubPushTrigger plugin="github@1.24.0">
-      <spec></spec>
-    </com.cloudbees.jenkins.GitHubPushTrigger>
+    <org.jenkinsci.plugins.ghprb.GhprbTrigger plugin="ghprb@1.34.0">
+      <spec>H/5 * * * *</spec>
+      <latestVersion>3</latestVersion>
+      <configVersion>3</configVersion>
+      <adminlist>JamesMBartlett
+MadcowD
+p-patil
+philkuz</adminlist>
+      <allowMembersOfWhitelistedOrgsAsAdmin>false</allowMembersOfWhitelistedOrgsAsAdmin>
+      <orgslist>EigenAlexa</orgslist>
+      <cron>H/5 * * * *</cron>
+      <buildDescTemplate></buildDescTemplate>
+      <onlyTriggerPhrase>false</onlyTriggerPhrase>
+      <useGitHubHooks>true</useGitHubHooks>
+      <permitAll>false</permitAll>
+      <whitelist>JamesMBartlett</whitelist>
+      <autoCloseFailedPullRequests>false</autoCloseFailedPullRequests>
+      <displayBuildErrorsOnDownstreamBuilds>false</displayBuildErrorsOnDownstreamBuilds>
+      <whiteListTargetBranches>
+        <org.jenkinsci.plugins.ghprb.GhprbBranch>
+          <branch></branch>
+        </org.jenkinsci.plugins.ghprb.GhprbBranch>
+      </whiteListTargetBranches>
+      <blackListTargetBranches>
+        <org.jenkinsci.plugins.ghprb.GhprbBranch>
+          <branch></branch>
+        </org.jenkinsci.plugins.ghprb.GhprbBranch>
+      </blackListTargetBranches>
+      <gitHubAuthId>5825aa04-32ee-4a95-b158-7d64beb536bc</gitHubAuthId>
+      <triggerPhrase></triggerPhrase>
+      <skipBuildPhrase>.*\[skip\W+ci\].*</skipBuildPhrase>
+      <blackListLabels></blackListLabels>
+      <whiteListLabels></whiteListLabels>
+      <extensions>
+        <org.jenkinsci.plugins.ghprb.extensions.status.GhprbSimpleStatus>
+          <commitStatusContext>Jenkins</commitStatusContext>
+          <triggeredStatus></triggeredStatus>
+          <startedStatus></startedStatus>
+          <statusUrl></statusUrl>
+          <addTestResults>false</addTestResults>
+          <completedStatus>
+            <org.jenkinsci.plugins.ghprb.extensions.comments.GhprbBuildResultMessage>
+              <message></message>
+              <result>SUCCESS</result>
+            </org.jenkinsci.plugins.ghprb.extensions.comments.GhprbBuildResultMessage>
+          </completedStatus>
+        </org.jenkinsci.plugins.ghprb.extensions.status.GhprbSimpleStatus>
+      </extensions>
+    </org.jenkinsci.plugins.ghprb.GhprbTrigger>
   </triggers>
   <concurrentBuild>false</concurrentBuild>
   <builders>
-    <com.cloudbees.jenkins.GitHubSetCommitStatusBuilder plugin="github@1.24.0">
+    <com.cloudbees.jenkins.GitHubSetCommitStatusBuilder plugin="github@1.25.1">
       <statusMessage>
         <content></content>
       </statusMessage>
       <contextSource class="org.jenkinsci.plugins.github.status.sources.DefaultCommitContextSource"/>
     </com.cloudbees.jenkins.GitHubSetCommitStatusBuilder>
+    <hudson.tasks.Shell>
+      <command>cp $JENKINS_HOME/jenkins.pem $(pwd)/jenkins.pem
+docker -H tcp://localhost:2375 run -v $(pwd):/build_$BUILD_NUMBER -w /build_$BUILD_NUMBER teamidefix/ansible ansible-playbook -i build/hosts build/playbook.yml</command>
+    </hudson.tasks.Shell>
   </builders>
   <publishers>
-    <org.jenkinsci.plugins.github.status.GitHubCommitStatusSetter plugin="github@1.24.0">
+    <org.jenkinsci.plugins.github.status.GitHubCommitStatusSetter plugin="github@1.25.1">
       <commitShaSource class="org.jenkinsci.plugins.github.status.sources.BuildDataRevisionShaSource"/>
       <reposSource class="org.jenkinsci.plugins.github.status.sources.AnyDefinedRepositorySource"/>
       <contextSource class="org.jenkinsci.plugins.github.status.sources.DefaultCommitContextSource"/>
-      <statusResultSource class="org.jenkinsci.plugins.github.status.sources.ConditionalStatusResultSource"/>
+      <statusResultSource class="org.jenkinsci.plugins.github.status.sources.DefaultStatusResultSource"/>
       <statusBackrefSource class="org.jenkinsci.plugins.github.status.sources.BuildRefBackrefSource"/>
       <errorHandlers/>
     </org.jenkinsci.plugins.github.status.GitHubCommitStatusSetter>
   </publishers>
   <buildWrappers/>
 </project>
+

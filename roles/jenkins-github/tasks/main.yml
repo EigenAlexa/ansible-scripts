@@ -78,6 +78,7 @@
   with_items:
  #   - github-plugin-configuration.xml
     - jenkins.model.JenkinsLocationConfiguration.xml
+    - jenkins.pem
 #- name: Remove secrets
 #  file:
 #    name: "{{jenkins_home}}/secrets"
