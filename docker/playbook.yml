@@ -1,13 +1,19 @@
 ---
-- hosts: EC2
+- hosts: "{{target}}"
+  remote_user: ubuntu
+  gather_facts: False
   tasks:
-  - name: Install apt-https
+  - name: install python 2
+    raw: test -e /usr/bin/python || (apt install -y python-minimal)
+    become: true
+  - name: Install apt-https, AWS cli
     apt:
       name: "{{item}}"
       state: present
     with_items:
       - apt-transport-https
       - ca-certificates
+      - awscli
     become: true
   - name: Add Docker's GPG key
     shell: curl -fsSL https://yum.dockerproject.org/gpg | apt-key add -
@@ -32,4 +38,6 @@
     user:
       name: ubuntu
       group: docker
-    become: true 
+    become: true
+  - name: AWS Configure
+    shell: printf "{{ lookup('env', 'AWS_ACCESS_KEY') }}\n{{ lookup('env', 'AWS_SECRET_KEY') }}\nus-east-1\n\n" | aws configure --profile ubuntu
